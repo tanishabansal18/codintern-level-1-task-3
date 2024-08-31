@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+        }
+        .main {
+            display: grid;
+            gap: 10px;
+            grid-template-columns: repeat(4, 1fr);
+            max-width: 300px;
+            width: 100%;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+        .box {
+            grid-column: span 4;
+            background: #333;
+            color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: right;
+            font-size: 2em;
+            overflow: hidden;
+            word-wrap: break-word;
+        }
+        button {
+            background: #424242;
+            border: none;
+            border-radius: 5px;
+            padding: 15px;
+            font-size: 1.2em;
+            color: #e0e0e0;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #616161;
+        }
+        .op {
+            background: #ff5722;
+            color: #fff;
+        }
+        .op:hover {
+            background: #e64a19;
+        }
+        button:active {
+            background: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="box" id="demo">0</div>
+        <button onclick="allClear()">AC</button><br/>
+        <button onclick="singleClear()">C</button><br/>
+        <button onclick="task(1)">1</button>
+        <button onclick="task(2)">2</button>
+        <button onclick="task(3)">3</button>
+        <button onclick="task(4)">4</button>
+        <button onclick="task(5)">5</button>
+        <button onclick="task(6)">6</button>
+        <button onclick="task(7)">7</button>
+        <button onclick="task(8)">8</button>
+        <button onclick="task(9)">9</button>
+        <button onclick="task(0)">0</button>
+        <button onclick="answer()">=</button>
+        <button class="op" onclick="task('+')">+</button>
+        <button class="op" onclick="task('-')">-</button>
+        <button class="op" onclick="task('*')">*</button>
+        <button class="op" onclick="task('/')">/</button>
+    </div>
+
+    <script>
+        let arr = [];
+        function task(val) {
+            arr.push(val);
+            let demo = document.getElementById('demo');
+            demo.innerHTML = arr.join('');
+        }
+
+        function allClear() {
+            arr = [];
+            let demo = document.getElementById('demo');
+            demo.innerHTML = '0';
+        }
+
+        function singleClear() {
+            arr.pop();
+            let demo = document.getElementById('demo');
+            demo.innerHTML = arr.length ? arr.join('') : '0';
+        }
+
+        function answer() {
+            let str = arr.join('');
+            let result;
+            try {
+                result = eval(str);
+                if (result === Infinity || isNaN(result)) {
+                    result = 'Error';
+                }
+            } catch (e) {
+                result = 'Error';
+            }
+            let demo = document.getElementById('demo');
+            demo.innerHTML = result;
+            arr = [result];
+        }
+    </script>
+</body>
+</html>
